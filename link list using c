@@ -1,0 +1,172 @@
+#include<stdio.h>
+#include<stdlib.h>
+void insert_begin(int);
+void insert_end(int);
+void delete_begin();
+void delete_end();
+void display();
+struct node{
+int info;
+struct node*next;
+};
+struct node *head=NULL;
+int main()
+{
+    int choice,data;
+    while(1)
+    {
+
+printf("enter 1 for insertion in the beginning \n");
+printf("enter 2 for insertion in the end \n");
+printf("enter 3 for deletion in the beginning \n");
+printf("enter 4 for deletion in the end \n");
+printf("enter 5 for display \n");
+printf("enter 6 for exit \n");
+printf("enter your choice\n");
+scanf("%d",&choice);
+
+switch(choice)
+{
+
+case 1:
+    printf("enter the data\n");
+    scanf("%d",&data);
+    insert_begin(data);
+    break;
+case 2:
+    printf("enter the data\n");
+    scanf("%d",&data);
+    insert_end(data);
+    break;
+case 3:
+    delete_begin();
+    break;
+case 4:
+  delete_end();
+    break;
+case 5:
+  display();
+    break;
+case 6:
+  exit(0);
+default:
+    printf("your choice is wrong\n");
+
+}
+}
+return 0;
+
+}
+void insert_begin(int data)
+{
+    //step 1
+    struct node *newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    if(newnode==NULL)
+    {
+
+        printf("node creation is fail..\n");
+        exit(0);
+    }
+    //step 2
+    newnode->info=data;//step 3
+    newnode->next=head;//
+    head=newnode;//step-4
+    printf("new node inserted in the beginning\n");
+
+}
+void insert_end(int data )
+{
+    struct node*ptr=head;
+
+    struct node *newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    if(newnode==NULL)
+    {
+        printf("node creation fail\n");
+        exit(0);
+    }
+
+    newnode->info = data;
+    newnode->next = NULL;
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        while(ptr->next!=NULL)
+        {
+            ptr=ptr->next;
+        }
+        ptr->next=newnode;
+    }
+    printf("new node inserted in the end\n");
+}
+
+void display()
+{
+    int i;
+    struct node*ptr=head;
+    if(head==NULL)
+    {
+        printf("the list is empty\n");
+        exit(0);
+    }
+    else
+    {
+        printf("the item of the link list are as follows\n");
+         while(ptr!=NULL)
+        {
+
+       printf("%d\n",ptr->info);
+       ptr=ptr->next;
+       }
+    }
+
+}
+void delete_begin()
+{
+    struct node *ptr=head;
+    if(head==NULL)
+    {
+        printf("the list is empty\n");
+        exit(0);
+    }
+    else
+    {
+        head=head->next;
+        free(ptr);
+        printf("the node is deleted from the beginning \n");
+    }
+}
+void delete_end()
+{
+     struct node *ptr1=head;
+     struct node *ptr2=head;
+    if(head==NULL)
+    {
+        printf("the list is empty\n");
+        exit(0);
+    }
+    else if(head->next==NULL)
+    {
+       
+        free(head);
+         head=NULL;
+        printf("the node is deleted from the last\n");
+    }
+    else
+    {
+     while(ptr1->next!=NULL)
+     {
+       ptr2 = ptr1;
+       ptr1 = ptr1->next;
+     }
+     ptr2->next=NULL;
+     free(ptr1);
+     printf(" the node is deleted from the last\n");
+    }
+
+
+}
